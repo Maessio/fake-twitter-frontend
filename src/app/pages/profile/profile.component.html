@@ -1,1 +1,16 @@
-<p>profile works!</p>
+<div class="flex justify-center mt-4">
+    <div class="card bg-[#121821] shadow-sm w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-6 h-auto">
+        <div class="card-body flex flex-col sm:flex-row items-start">
+            <div class="flex items-center avatar w-20 h-20">
+                <img class="w-full h-full object-cover rounded-lg" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            </div>
+            <div class="flex-1 mt-4 sm:mt-0 sm:ml-4 w-full">
+                <h2 class="card-title text-left">{{ userProfile?.userName }}</h2>
+                <p class="text-left">{{ userProfile?.email }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-footer/>
