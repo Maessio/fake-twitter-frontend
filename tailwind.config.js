@@ -4,7 +4,6 @@ module.exports = {
   theme: {
     borderRadius: {
       DEFAULT: '1rem',
-      DEFAULT: '16px',
       'lg': '1rem',
     },
     extend: {},
@@ -28,3 +27,4 @@ module.exports = {
     require('daisyui'),
   ],
 }
+
