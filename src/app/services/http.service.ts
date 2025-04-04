@@ -1,25 +1,28 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { UserProfileService } from './user-profile.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+  private userProfileService = inject(UserProfileService);
 
-  // Método genérico para realizar requisições GET
-  get<T>(url: string, token?: string, params?: HttpParams): Observable<T> {
-    const headers = token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
-    return this.http.get<T>(url, { headers, params });
+  private baseURL = "http://localhost:8080";
+
+  private token = this.userProfileService.getUserProfile()?.token ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvaG4zMjExQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQzNzQ3ODY2fQ.dap2QlzpxGwuldxQIJcoPOuytZZctZRePnzqKO5lDT4";
+
+  get<T>(path: string, params?: HttpParams): Observable<T> {
+    const headers = this.token ? new HttpHeaders({ 'Authorization': `Bearer ${this.token}` }) : new HttpHeaders();
+    return this.http.get<T>(this.baseURL + path, { headers, params });
   }
 
-  // Método genérico para realizar requisições POST
-  post<T>(url: string, body: any, token?: string): Observable<T> {
-    const headers = token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
-    return this.http.post<T>(url, body, { headers });
+  post<T>(path: string, body: unknown): Observable<T> {
+    const headers = this.token ? new HttpHeaders({ 'Authorization': `Bearer ${this.token}` }) : new HttpHeaders();
+    return this.http.post<T>(this.baseURL + path, body, { headers });
   }
 
-  // Outros métodos como PUT, DELETE podem ser adicionados aqui
 }
