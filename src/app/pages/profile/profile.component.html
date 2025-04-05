@@ -1,16 +1,62 @@
-<div class="flex justify-center mt-4">
-    <div class="card bg-[#121821] shadow-sm w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-6 h-auto">
-        <div class="card-body flex flex-col sm:flex-row items-start">
-            <div class="flex items-center avatar w-20 h-20">
-                <img class="w-full h-full object-cover rounded-lg" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+<div class="h-screen overflow-hidden min-h-screen flex flex-col">
+    <div class="flex justify-center mt-4">
+      <div class="card bg-[#121821] shadow-sm w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-6 h-auto">
+        <div class="card-body flex flex-col sm:flex-row items-start pb-1">
+          <div class="flex items-center avatar w-20 h-20">
+            <img class="w-full h-full object-cover rounded-lg"
+                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
+          <div class="flex-1 mt-4 sm:mt-0 sm:ml-4 w-full">
+            <h2 class="card-title text-left">{{ userProfile?.userName }}</h2>
+            <p class="text-left">{{ userProfile?.email }}</p>
+  
+            <div class="mt-2 flex flex-col sm:flex-row gap-8 text-base font-normal">
+              <button class="btn btn-ghost pl-0 pr-6 gap-2 justify-start text-white normal-case" (click)="changePassword()">
+                <img src="../../../assets/icons/lock.svg" alt="Change Password" class="h-4 w-4" />
+                Change password
+              </button>
+              <button class="btn btn-ghost pl-0 pr-6 gap-2 justify-start text-red-500 normal-case" (click)="logout()">
+                <img src="../../../assets/icons/logout.svg" alt="Logout" class="h-6 w-6" />
+                Logout
+              </button>
             </div>
-            <div class="flex-1 mt-4 sm:mt-0 sm:ml-4 w-full">
-                <h2 class="card-title text-left">{{ userProfile?.userName }}</h2>
-                <p class="text-left">{{ userProfile?.email }}</p>
+          </div>
+        </div>
+  
+        <div class="stats stats-vertical lg:stats-horizontal shadow bg-[#121821]">
+          <div class="stat flex justify-center items-center">
+            <div class="stat-figure text-secondary">
+              <img src="../../../assets/icons/posts.svg" alt="Posts" class="h-6 w-6 opacity-70" />
+            </div>
+            <div class="stat-value text-2xl">{{ userProfile?.posts?.length }}</div>
+            <div class="stat-title">Posts</div>
+          </div>
+          <div class="stat flex justify-center items-center">
+            <div class="stat-figure text-secondary">
+              <img src="../../../assets/icons/profile.svg" alt="Followers" class="h-6 w-6 opacity-70" />
+            </div>
+            <div class="stat-value text-2xl">{{ userProfile?.followersCount }}</div>
+            <div class="stat-title">Followers</div>
+          </div>
+          <div class="stat flex justify-center items-center">
+            <div class="text-secondary">
+              <img src="../../../assets/icons/profile.svg" alt="Following" class="h-6 w-6 opacity-70" />
+            </div>
+            <div class="stat-value text-2xl">{{ userProfile?.followingCount }}</div>
+            <div class="stat-title">Following</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="flex flex-col flex-1 h-3/4">
+        <div class="flex-1 overflow-y-auto bg-neutral p-4 pb-24 flex flex-col items-center gap-4 no-scrollbar w-full">
+            <div *ngFor="let post of userProfile?.posts" class="w-full px-4">
+                <app-post [post]="post" class="flex justify-center"></app-post>
             </div>
         </div>
+  
     </div>
+    <app-footer />
 </div>
-
-
-<app-footer/>
+  

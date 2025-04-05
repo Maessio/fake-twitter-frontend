@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../components/footer/footer.component";
-import { Post } from '../../interfaces/post';
+import { Post } from '../../interfaces/post.interface';
 import { PostComponent } from "../../components/post/post.component";
 
 @Component({
@@ -15,30 +15,37 @@ export class HomeComponent {
   postList: Post[] = [
     {
       username: 'Jane_doe',
+      userId: 2,
+      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
+    },
+    { 
+      username: 'Jane_doe',
+      userId: 2,
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
     },
     {
       username: 'Jane_doe',
+      userId: 2,
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
     },
     {
       username: 'Jane_doe',
+      userId: 2,
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
     },
     {
       username: 'Jane_doe',
+      userId: 2,
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
     },
     {
       username: 'Jane_doe',
+      userId: 2,
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
     },
     {
       username: 'Jane_doe',
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
-    },
-    {
-      username: 'Jane_doe',
+      userId: 2,
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum facere, officia minima, perferendis iusto iure consectetur laudantium soluta corporis aspernatur exercitationem magnam alias eos? Natus nihil est officia ratione cupiditate'
     }
   ]

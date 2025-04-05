@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem } from '../../interfaces/menu-item';
+import { MenuItem } from '../../interfaces/menu-item.interface';
 import { Router } from '@angular/router';
 
 
