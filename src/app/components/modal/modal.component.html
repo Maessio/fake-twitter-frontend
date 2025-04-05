@@ -1,0 +1,9 @@
+<dialog #dialogRef class="modal modal-bottom sm:modal-middle" [open]="open">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">{{ title }}</h3>
+      <p class="py-4">{{ message }}</p>
+      <div class="modal-action">
+        <button class="btn" (click)="close()">OK</button>
+      </div>
+    </div>
+</dialog>
