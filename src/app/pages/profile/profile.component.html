@@ -11,12 +11,12 @@
             <p class="text-left">{{ userProfile?.email }}</p>
   
             <div class="mt-2 flex flex-col sm:flex-row gap-8 text-base font-normal">
-              <button class="btn btn-ghost pl-0 pr-6 gap-2 justify-start text-white normal-case" (click)="changePassword()">
-                <img src="../../../assets/icons/lock.svg" alt="Change Password" class="h-4 w-4" />
+              <button class="btn pl-1 pr-1 gap-2 justify-start text-white normal-case" onclick="change_password.showModal()">
+                <img src="assets/icons/lock.svg" alt="Change Password" class="h-4 w-4" />
                 Change password
               </button>
-              <button class="btn btn-ghost pl-0 pr-6 gap-2 justify-start text-red-500 normal-case" (click)="logout()">
-                <img src="../../../assets/icons/logout.svg" alt="Logout" class="h-6 w-6" />
+              <button class="btn pl-1 pr-1 gap-2 justify-start text-red-500 normal-case" onclick="logout.showModal()">
+                <img src="assets/icons/logout.svg" alt="Logout" class="h-6 w-6" />
                 Logout
               </button>
             </div>
@@ -26,21 +26,21 @@
         <div class="stats stats-vertical lg:stats-horizontal shadow bg-[#121821]">
           <div class="stat flex justify-center items-center">
             <div class="stat-figure text-secondary">
-              <img src="../../../assets/icons/posts.svg" alt="Posts" class="h-6 w-6 opacity-70" />
+              <img src="assets/icons/posts.svg" alt="Posts" class="h-6 w-6 opacity-70" />
             </div>
             <div class="stat-value text-2xl">{{ userProfile?.posts?.length }}</div>
             <div class="stat-title">Posts</div>
           </div>
           <div class="stat flex justify-center items-center">
             <div class="stat-figure text-secondary">
-              <img src="../../../assets/icons/profile.svg" alt="Followers" class="h-6 w-6 opacity-70" />
+              <img src="assets/icons/profile.svg" alt="Followers" class="h-6 w-6 opacity-70" />
             </div>
             <div class="stat-value text-2xl">{{ userProfile?.followersCount }}</div>
             <div class="stat-title">Followers</div>
           </div>
           <div class="stat flex justify-center items-center">
             <div class="text-secondary">
-              <img src="../../../assets/icons/profile.svg" alt="Following" class="h-6 w-6 opacity-70" />
+              <img src="assets/icons/profile.svg" alt="Following" class="h-6 w-6 opacity-70" />
             </div>
             <div class="stat-value text-2xl">{{ userProfile?.followingCount }}</div>
             <div class="stat-title">Following</div>
@@ -59,4 +59,67 @@
     </div>
     <app-footer />
 </div>
-  
+
+<dialog id="change_password" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <form class="card-body" [formGroup]="passwordForm">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Change Password</h2>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Current Password</span>
+        </label>
+        <input
+          formControlName="oldPassword"
+          type="password"
+          placeholder="Enter your current password"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control mt-4">
+        <label class="label">
+          <span class="label-text">New Password</span>
+        </label>
+        <input
+          formControlName="newPassword"
+          type="password"
+          placeholder="Enter your new password"
+          class="input input-bordered"
+          required
+        />
+      </div>
+    </form>
+
+    <div class="modal-action flex justify-end gap-2">
+      <form method="dialog">
+        <button class="btn btn-outline">Cancel</button>
+      </form>
+      <form method="dialog">
+        <button class="btn btn-primary" (click)="changePassword()">Confirm</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+
+<dialog id="logout" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Logout</h3>
+    <p class="py-4">Are you sure you want to logout?</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-outline">Cancel</button>
+      </form>
+
+      <button class="btn btn-primary" (click)="logout()">Confirm</button>
+    </div>
+  </div>
+</dialog>
+
+<app-modal
+  [open]="modalOpen"
+  [title]="modalTitle"
+  [message]="modalMessage">
+</app-modal>
