@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserProfile } from '../interfaces/user-profile';
+import { UserProfile } from '../interfaces/user-profile.interface';
 import { HttpService } from './http.service';
 import { map } from 'rxjs/operators';
 
@@ -19,11 +19,4 @@ export class UserService {
     );
   }
 
-  loadUserPosts(id: number): Observable<any> {
-    const path = `/users/${id}/posts`;
-
-    return this.httpService.get<{ data: any }>(path).pipe(
-      map(response => response.data)
-    );
-  }
 }
