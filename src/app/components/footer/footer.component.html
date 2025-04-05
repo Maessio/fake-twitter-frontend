@@ -1,14 +1,59 @@
-<footer class="footer">
-  <ul class="menu bg-base-200 menu-horizontal rounded-box border-2">
-    <li *ngFor="let item of menuItems">
-      <a 
-        [class.border-white]="isActive(item.route)" 
-        class="border-2 border-transparent p-2 rounded-lg"
-        (click)="setActive(item.route)"
-      >
-        <img [src]="item.iconPath" [alt]="item.label" class="h-5 w-5" />
-        {{ item.label }}
-      </a>
-    </li>
-  </ul>
+<footer class="footer flex justify-center items-center p-4 border-base-300">
+  <div class="flex items-center gap-2 flex-wrap">
+    <ul class="menu menu-horizontal bg-base-200 rounded-box border-2 flex-wrap">
+      <li *ngFor="let item of menuItems">
+        <a 
+          [class.border-white]="isActive(item.route)" 
+          class="border-2 border-transparent p-2 rounded-lg flex items-center gap-2"
+          (click)="setActive(item.route)"
+        >
+          <img [src]="item.iconPath" [alt]="item.label" class="h-5 w-5" />
+          <span class="hidden sm:inline">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+
+    <button class="btn btn-circle btn-outline bg-base-200" (click)="openPostDialog()">
+      <img src="assets/icons/posts.svg" alt="Posts" class="h-6 w-6 opacity-70" />
+    </button>
+  </div>
 </footer>
+
+<dialog id="create_post" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <form class="card-body" [formGroup]="postForm">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">What's going on?</h2>
+
+      <textarea
+        formControlName="content"
+        class="textarea textarea-bordered h-32 resize-none"
+        placeholder="Write your post here..."
+        minlength="15"
+        maxlength="120"
+      ></textarea>
+
+      <div *ngIf="postForm.get('content')?.touched && postForm.get('content')?.invalid" class="text-red-500 mt-1 text-sm">
+        <div *ngIf="postForm.get('content')?.errors?.['required']">Post is required.</div>
+        <div *ngIf="postForm.get('content')?.errors?.['minlength']">Post must be at least 15 characters.</div>
+        <div *ngIf="postForm.get('content')?.errors?.['maxlength']">Post must be no more than 120 characters.</div>
+      </div>
+    </form>
+
+    <div class="modal-action flex justify-end gap-2 mt-2">
+      <form method="dialog">
+        <button class="btn btn-outline">Cancel</button>
+      </form>
+      <button class="btn btn-primary" [disabled]="postForm.invalid" (click)="submitPost()">Post</button>
+    </div>
+  </div>
+</dialog>
+
+<app-modal
+  [open]="modalOpen"
+  [title]="modalTitle"
+  [message]="modalMessage">
+</app-modal>
+
+
+
+
