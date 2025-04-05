@@ -3,7 +3,7 @@
     
     <div class="order-1 text-center lg:text-left lg:mr-8">
       <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-6">
-        <img src="../../../assets/icons/logo.svg" alt="Fake Twitter Logo" class="h-20 sm:h-24" />
+        <img src="assets/icons/logo.svg" alt="Fake Twitter Logo" class="h-20 sm:h-24" />
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold">Fake Twitter</h1>
       </div>
       <p class="py-4 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
@@ -29,7 +29,7 @@
         <div class="form-control mt-6">
           <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid">Login</button>
           <label class="label justify-center mt-1">
-            <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+            <a href="#" class="label-text-alt link link-hover">New here? Click to register</a>
           </label>
         </div>
       </form>
@@ -38,3 +38,9 @@
 
   </div>
 </div>
+
+<app-modal
+  [open]="modalOpen"
+  [title]="modalTitle"
+  [message]="modalMessage">
+</app-modal>
