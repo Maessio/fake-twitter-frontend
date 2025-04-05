@@ -1,0 +1,7 @@
+
+<div class="flex-1 overflow-y-auto scrollbar-none bg-neutral p-4 flex flex-col items-center gap-4 no-scrollbar w-full ">
+    <div *ngFor="let post of postList" class="w-full px-4">
+    <app-post [post]="post" class="flex justify-center"></app-post>
+    </div>
+</div>
+
