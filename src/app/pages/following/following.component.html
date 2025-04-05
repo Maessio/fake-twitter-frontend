@@ -1,0 +1,13 @@
+<div class="h-screen flex flex-col ">
+  
+    <div class="text-center px-4 py-6">
+      <h1 class="text-4xl font-bold">From People You Follow</h1>
+      <p class="py-4">See what your friends and the people you follow are sharing right now</p>
+    </div>
+  
+    <div class="flex-1 overflow-y-auto no-scrollbar">
+      <app-carousel [postList]="postList" />
+    </div>
+  
+    <app-footer />
+</div>
