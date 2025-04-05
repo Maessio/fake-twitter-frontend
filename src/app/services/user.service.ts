@@ -9,10 +9,13 @@ import { map } from 'rxjs/operators';
 })
 export class UserService {
 
+  private baseURL = '/users';
+
   private httpService = inject(HttpService);
 
+
   loadUserProfile(id: number): Observable<UserProfile> {
-    const path = `/users/${id}`;
+    const path = `${this.baseURL}/${id}`;
 
     return this.httpService.get<{ data: UserProfile }>(path).pipe(
       map(response => response.data)

@@ -9,24 +9,32 @@ import { ChangePasswordRequest } from '../interfaces/request/change-password-req
   providedIn: 'root'
 })
 export class AuthService {
+
+    private baseURL = '/auth'
     
     private httpService = inject(HttpService);
-
+    
     login(credentials: LoginRequest): Observable<LoginResponse> {
-        const path = `/auth/login`;
+        localStorage.clear();
+
+        const path = `${this.baseURL}/login`;
 
         return this.httpService.post<{ data: LoginResponse }>(path, credentials).pipe(
             map(response => response.data)
         );
     }
 
-    changeUserPassword(body: ChangePasswordRequest): Observable<void> {
-        const id = localStorage.getItem('userId');
+    logout(id: number) {
+      const path = `${this.baseURL}/logout/${id}`;
 
-        const path = `/auth/${id}/change-password`;
-    
-        return this.httpService.put<void>(path, body);
-      }
+      return this.httpService.post(path);
+    }
+
+    changeUserPassword(id: number, body: ChangePasswordRequest) {
+      const path = `${this.baseURL}/change-password/${id}`;
+
+      return this.httpService.put(path, body);
+    }
 }
 
 
