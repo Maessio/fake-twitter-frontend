@@ -1,23 +1,22 @@
-<div class="relative card bg-[#121821] shadow-sm w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-6 h-auto">
-    <!-- Botão no canto superior direito -->
+<div class="relative card bg-[#121821] shadow-sm w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-6 h-auto flex justify-center">
     <button
       class="absolute top-2 right-2 btn btn-sm btn-ghost text-white flex items-center gap-1"
       (click)="onActionClick()"
       aria-label="Post action"
     >
       <ng-container *ngIf="isUserLogged; else viewTemplate">
-        <span class="text-sm text-red-500">Delete</span>
-        <img src="../../../assets/icons/bucket.svg" alt="Change Password" class="h-5 w-5" />
+        <span class="text-sm normal-case">Delete</span>
+        <img src="assets/icons/bucket.svg" alt="Change Password" class="h-5 w-5" />
       </ng-container>
   
       <ng-template #viewTemplate>
-        <span class="text-sm">View</span>
-        <img src="../../../assets/icons/profile.svg" alt="Change Password" class="h-5 w-5" />
+        <span class="text-sm normal-case">View</span>
+        <img src="assets/icons/profile.svg" alt="Change Password" class="h-5 w-5" />
       </ng-template>
     </button>
   
     <div class="card-body flex flex-col sm:flex-row items-start">
-      <div class="flex items-center avatar w-20 h-20">
+      <div class="flex items-center w-10 h-10">
         <img class="w-full h-full object-cover rounded-lg"
           src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
       </div>
@@ -26,5 +25,5 @@
         <p class="text-left">{{ post?.content }}</p>
       </div>
     </div>
-  </div>
+</div>
   

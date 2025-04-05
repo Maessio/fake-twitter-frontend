@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Post } from '../../interfaces/post.interface';
 
 @Component({
   selector: 'app-post',
-  imports: [CommonModule],
+  imports: [NgIf],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
@@ -21,7 +21,6 @@ export class PostComponent implements OnInit{
   }
 
   private checkIfUserIsLogged(): void {
-
     if (!this.post?.userId) {
       this.isUserLogged = true;
       return;
