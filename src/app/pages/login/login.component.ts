@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        this.showModal('Invalid Credentials!', 'User email or password are incorret.');
+        this.showModal('Login Failed', 'The email or password you entered is incorrect. Please try again.');
       }
     });
   }
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit{
         this.toggleForm();
       },
       error: (err) => {
-        this.showModal('Invalid Credentials!', 'User email or password are incorret.');
+        this.showModal('Registration Failed', 'The email may already be in use or the data is invalid. Please check and try again.');
       }
     });
   }
