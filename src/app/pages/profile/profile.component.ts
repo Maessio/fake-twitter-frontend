@@ -4,8 +4,7 @@ import { UserService } from '../../services/user.service';
 import { UserProfile } from '../../interfaces/user-profile.interface';
 import { AuthService } from '../../services/auth.service';
 import { FooterComponent } from "../../components/footer/footer.component";
-import { PostComponent } from "../../components/post/post.component";
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +13,7 @@ import { CarouselComponent } from "../../components/carousel/carousel.component"
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, FooterComponent, PostComponent, NgFor, NgIf, ModalComponent, CarouselComponent],
+  imports: [ReactiveFormsModule, FooterComponent, NgIf, ModalComponent, CarouselComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
