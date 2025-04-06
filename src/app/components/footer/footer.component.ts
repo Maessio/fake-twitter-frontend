@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { MenuItem } from '../../interfaces/menu-item.interface';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { ModalComponent } from "../modal/modal.component";
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [NgFor, NgIf, ReactiveFormsModule, ModalComponent],
+  imports: [NgFor, ReactiveFormsModule, ModalComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
