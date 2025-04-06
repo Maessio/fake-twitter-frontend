@@ -13,14 +13,20 @@ export class PostService {
   private httpService = inject(HttpService);
   private baseURL = '/posts'
 
-  createPost(id: number, content: string) {
-    const path = `${this.baseURL}/${id}`;
+  createPost(userId: number, content: string) {
+    const path = `${this.baseURL}/${userId}`;
 
     const body = {
       content: content
     }
 
     return this.httpService.post(path, body);
+  }
+
+  deletePost(postId: number) {
+    const path = `${this.baseURL}/${postId}`;
+
+    return this.httpService.delete(path);
   }
 
   randomPosts(): Observable<Post[]> {
