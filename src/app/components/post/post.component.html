@@ -9,9 +9,11 @@
         <img src="assets/icons/bucket.svg" alt="Change Password" class="h-5 w-5" />
       </ng-container>
   
-      <ng-template #viewTemplate>
-        <span class="text-sm normal-case">View</span>
-        <img src="assets/icons/profile.svg" alt="Change Password" class="h-5 w-5" />
+      <ng-template  #viewTemplate>
+        <div *ngIf="page == 'home' || page == 'following'" class="flex">
+          <span class="text-sm normal-case">View</span>
+          <img src="assets/icons/profile.svg" alt="Change Password" class="h-5 w-5" />
+        </div>
       </ng-template>
     </button>
   

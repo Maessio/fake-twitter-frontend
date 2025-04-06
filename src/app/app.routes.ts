@@ -9,6 +9,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent }, 
   { path: 'home', component: HomeComponent }, 
   { path: 'following', component: FollowingComponent }, 
-  { path: 'profile', component: ProfileComponent }, 
+  { path: 'profile/:userId', component: ProfileComponent },
   { path: '**', redirectTo: 'login' }
 ];

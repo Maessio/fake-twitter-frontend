@@ -12,5 +12,7 @@ import { NgForOf } from '@angular/common';
 export class CarouselComponent {
 
   @Input() postList?: Post[];
+  @Input() isUserLogged?: boolean;
+  @Input() page?: string;
 
 }
