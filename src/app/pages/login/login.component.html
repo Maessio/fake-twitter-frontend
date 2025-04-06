@@ -1,46 +1,71 @@
-<div class="hero min-h-screen bg-base-200">
-  <div class="hero-content flex-col-reverse lg:flex-row-reverse items-center justify-between gap-10">
-    
-    <div class="order-1 text-center lg:text-left lg:mr-8">
-      <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-6">
-        <img src="assets/icons/logo.svg" alt="Fake Twitter Logo" class="h-20 sm:h-24" />
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold">Fake Twitter</h1>
+<div class="hero min-h-screen bg-base-200 px-4 sm:px-6">
+  <div class="hero-content flex-col-reverse lg:flex-row-reverse items-center justify-between gap-6 sm:gap-10">
+
+    <div class="order-1 text-center lg:text-left lg:mr-8 w-full">
+      <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-2 sm:gap-4 mb-4 sm:mb-6">
+        <img src="assets/icons/logo.svg" alt="Fake Twitter Logo" class="h-16 sm:h-20 md:h-24" />
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold">Fake Twitter</h1>
       </div>
-      <p class="py-4 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+      <p class="text-sm sm:text-base md:text-lg max-w-xs sm:max-w-md md:max-w-xl mx-auto lg:mx-0">
         Log in to connect with your friends, share what you're thinking, and stay up to date with everything happening around you.
       </p>
     </div>
 
-    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="card-body">
+    <div class="card flex-shrink-0 w-full max-w-xs sm:max-w-sm shadow-2xl bg-base-100">
+
+      <!-- LOGIN FORM -->
+      <form *ngIf="!isRegisterMode" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="card-body px-4 py-6 sm:px-6 sm:py-8">
         <div class="form-control">
-          <h2 class="text-3xl sm:text-4xl font-bold mb-4">Login in</h2>
-          <label class="label">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-4">Login</h2>
+          <label class="label text-sm sm:text-base">
             <span class="label-text">Email</span>
           </label>
-          <input formControlName="email" type="email" placeholder="email" class="input input-bordered" required />
+          <input formControlName="email" type="email" placeholder="email" class="input input-bordered input-sm sm:input-md" required />
         </div>
         <div class="form-control">
-          <label class="label">
+          <label class="label text-sm sm:text-base">
             <span class="label-text">Password</span>
           </label>
-          <input formControlName="password" type="password" placeholder="password" class="input input-bordered" required />
+          <input formControlName="password" type="password" placeholder="password" class="input input-bordered input-sm sm:input-md" required />
         </div>
-        <div class="form-control mt-6">
-          <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid">Login</button>
-          <label class="label justify-center mt-1">
-            <a href="#" class="label-text-alt link link-hover">New here? Click to register</a>
+        <div class="form-control mt-4 sm:mt-6">
+          <button class="btn btn-primary btn-sm sm:btn-md" type="submit" [disabled]="loginForm.invalid">Login</button>
+          <label class="label justify-center mt-2 text-xs sm:text-sm">
+            <a (click)="toggleForm()" class="label-text-alt link link-hover cursor-pointer">New here? Click to register</a>
           </label>
         </div>
       </form>
-    </div>
 
+      <!-- REGISTER FORM -->
+      <form *ngIf="isRegisterMode" [formGroup]="registerForm" (ngSubmit)="onRegister()" class="card-body px-4 py-6 sm:px-6 sm:py-8">
+        <div class="form-control">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-4">Sign up</h2>
+          <label class="label text-sm sm:text-base">
+            <span class="label-text">Username</span>
+          </label>
+          <input formControlName="username" type="text" placeholder="username" class="input input-bordered input-sm sm:input-md" required />
+        </div>
+        <div class="form-control">
+          <label class="label text-sm sm:text-base">
+            <span class="label-text">Email</span>
+          </label>
+          <input formControlName="email" type="email" placeholder="email" class="input input-bordered input-sm sm:input-md" required />
+        </div>
+        <div class="form-control">
+          <label class="label text-sm sm:text-base">
+            <span class="label-text">Password</span>
+          </label>
+          <input formControlName="password" type="password" placeholder="password" class="input input-bordered input-sm sm:input-md" required />
+        </div>
+        <div class="form-control mt-4 sm:mt-6">
+          <button class="btn btn-primary btn-sm sm:btn-md" type="submit" [disabled]="registerForm.invalid">Register</button>
+          <label class="label justify-center mt-2 text-xs sm:text-sm">
+            <a (click)="toggleForm()" class="label-text-alt link link-hover cursor-pointer">Already have an account? Login</a>
+          </label>
+        </div>
+      </form>
+
+    </div>
 
   </div>
 </div>
-
-<app-modal
-  [open]="modalOpen"
-  [title]="modalTitle"
-  [message]="modalMessage">
-</app-modal>

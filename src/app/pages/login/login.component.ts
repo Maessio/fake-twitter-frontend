@@ -1,30 +1,44 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, ModalComponent],
+  imports: [ReactiveFormsModule, ModalComponent, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+  isRegisterMode = false;
+  
+  modalOpen = false;
+  modalTitle = '';
+  modalMessage = '';
+  
+  loginForm!: FormGroup;
+  registerForm!: FormGroup;
   
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  modalOpen = false;
-  modalTitle = '';
-  modalMessage = '';
-
-  loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
-  });
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  
+    this.registerForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
 
   onSubmit(): void {
     localStorage.clear();
@@ -42,6 +56,26 @@ export class LoginComponent {
         this.showModal('Invalid Credentials!', 'User email or password are incorret.');
       }
     });
+  }
+
+  onRegister() {
+    localStorage.clear();
+
+    if (this.registerForm.invalid) return;
+
+    this.authService.register(this.registerForm.value).subscribe({
+      next: () => {
+
+        this.toggleForm();
+      },
+      error: (err) => {
+        this.showModal('Invalid Credentials!', 'User email or password are incorret.');
+      }
+    });
+  }
+
+  toggleForm(): void {
+    this.isRegisterMode = !this.isRegisterMode;
   }
 
   showModal(title: string, message: string) {
