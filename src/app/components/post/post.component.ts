@@ -3,7 +3,6 @@ import { NgIf } from '@angular/common';
 import { Post } from '../../interfaces/post.interface';
 import { Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
-import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-post',
