@@ -1,0 +1,128 @@
+<div class="h-screen overflow-hidden min-h-screen flex flex-col">
+    <div class="flex justify-center mt-4">
+      <div class="card bg-[#121821] shadow-sm w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-6 h-auto">
+        <div class="card-body flex flex-col sm:flex-row items-start pb-1">
+          <div class="flex items-center avatar w-20 h-20">
+            <img class="w-full h-full object-cover rounded-lg"
+                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
+          <div class="flex-1 mt-4 sm:mt-0 sm:ml-4 w-full">
+            <h2 class="card-title text-left">{{ userProfile?.userName }}</h2>
+            <p *ngIf="isUserLogged" class="text-left">{{ userProfile?.email }}</p>
+  
+            <div *ngIf="isUserLogged" class="mt-2 flex flex-col sm:flex-row gap-8 text-base font-normal">
+              <button class="btn pl-1 pr-1 gap-2 justify-start text-white normal-case" onclick="change_password.showModal()">
+                <img src="assets/icons/lock.svg" alt="Change Password" class="h-4 w-4" />
+                Change password
+              </button>
+              <button class="btn pl-1 pr-1 gap-2 justify-start text-red-500 normal-case" onclick="logout.showModal()">
+                <img src="assets/icons/logout.svg" alt="Logout" class="h-6 w-6" />
+                Logout
+              </button>
+            </div>
+          </div>
+          
+          <button *ngIf="!isUserLogged" class="absolute top-2 right-2 mr-2 mt-2 text-white flex items-center gap-2"aria-label="Post action" (click)="followUser()">
+            <div class="flex justify-center items-center gap-2 ">
+              <span class="text-sm normal-case">Follow</span>
+              <input type="checkbox" class="toggle toggle-info toggle-sm" [checked]="userProfile?.following" (change)="followUser()"  />
+            </div>
+          </button>
+        </div>
+  
+        <div class="stats stats-vertical lg:stats-horizontal shadow bg-[#121821]">
+          <div class="stat flex justify-center items-center">
+            <div class="stat-figure text-secondary">
+              <img src="assets/icons/posts.svg" alt="Posts" class="h-6 w-6 opacity-70" />
+            </div>
+            <div class="stat-value text-2xl">{{ userProfile?.posts?.length }}</div>
+            <div class="stat-title">Posts</div>
+          </div>
+          <div class="stat flex justify-center items-center">
+            <div class="stat-figure text-secondary">
+              <img src="assets/icons/profile.svg" alt="Followers" class="h-6 w-6 opacity-70" />
+            </div>
+            <div class="stat-value text-2xl">{{ userProfile?.followersCount }}</div>
+            <div class="stat-title">Followers</div>
+          </div>
+          <div class="stat flex justify-center items-center">
+            <div class="text-secondary">
+              <img src="assets/icons/profile.svg" alt="Following" class="h-6 w-6 opacity-70" />
+            </div>
+            <div class="stat-value text-2xl">{{ userProfile?.followingCount }}</div>
+            <div class="stat-title">Following</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="flex-1 overflow-y-auto no-scrollbar">
+      <app-carousel [postList]="userProfile?.posts" [isUserLogged]="isUserLogged" [page]="'profile'"/>
+    </div>
+
+    <app-footer />
+</div>
+
+<dialog id="change_password" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <form class="card-body" [formGroup]="passwordForm">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Change Password</h2>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Current Password</span>
+        </label>
+        <input
+          formControlName="oldPassword"
+          type="password"
+          placeholder="Enter your current password"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control mt-4">
+        <label class="label">
+          <span class="label-text">New Password</span>
+        </label>
+        <input
+          formControlName="newPassword"
+          type="password"
+          placeholder="Enter your new password"
+          class="input input-bordered"
+          required
+        />
+      </div>
+    </form>
+
+    <div class="modal-action flex justify-end gap-2">
+      <form method="dialog">
+        <button class="btn btn-outline">Cancel</button>
+      </form>
+      <form method="dialog">
+        <button class="btn btn-primary" (click)="changePassword()">Confirm</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+
+<dialog id="logout" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Logout</h3>
+    <p class="py-4">Are you sure you want to logout?</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-outline">Cancel</button>
+      </form>
+
+      <button class="btn btn-primary btn-error" (click)="logout()">Confirm</button>
+    </div>
+  </div>
+</dialog>
+
+<app-modal
+  [open]="modalOpen"
+  [title]="modalTitle"
+  [message]="modalMessage">
+</app-modal>

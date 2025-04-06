@@ -1,0 +1,39 @@
+<div class="h-screen flex flex-col ">
+  <div class="flex justify-center items-center gap-4 mt-4">
+    <img src="assets/icons/logo.svg" alt="Fake Twitter Logo" class="h-8 w-8" />
+    <label class="input input-bordered flex items-center gap-2 w-3/5 max-w-lg">
+      <input #searchInput type="text" class="grow bg-transparent" placeholder="Search for users" />
+      <button class="svg-button" (click)="searchUsers(searchInput.value)">
+        <img src="assets/icons/search.svg" alt="Search" class="h-4 w-4 opacity-70" />
+      </button>
+    </label>
+  </div>
+  
+
+  <div class="text-center px-4 py-6">
+    <h1 class="text-4xl font-bold">What's happening?</h1>
+    <p class="py-4">Follow your friends, share your thoughts, and scroll through users posts</p>
+  </div>
+
+  <div class="flex-1 overflow-y-auto no-scrollbar">
+    <app-carousel [postList]="postList" [page]="'home'"/>
+  </div>
+
+  <app-footer />
+</div>
+
+<dialog #searchModal class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Search Results</h3>
+    <div *ngIf="searchResults.length > 0" class="mt-4">
+      <div *ngFor="let user of searchResults" class="p-2 border-b border-gray-200">
+        <a [routerLink]="['/profile', user.id]" class="">
+          {{ user.userName }}
+        </a>
+      </div>
+    </div>
+    <form method="dialog" class="mt-4 text-right">
+      <button class="btn">Close</button>
+    </form>
+  </div>
+</dialog>
