@@ -42,8 +42,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userId = Number(this.route.snapshot.paramMap.get('userId'));
 
-    console.log(this.userId)
-
     this.isUserLogged = (this.userId == this.currentUserId) ? true : false;
 
     if (!this.userProfile) {
@@ -60,7 +58,6 @@ export class ProfileComponent implements OnInit {
     this.userService.loadUserProfile(currentUserId, userId).subscribe({
       next: (profile) => {
         this.userProfile = profile;
-        console.log(this.userProfile);
       },
       error: (error) => {
         console.error('Error to load profile:', error);
@@ -91,8 +88,6 @@ export class ProfileComponent implements OnInit {
         this.passwordForm.reset();
       },
       error: (error) => {
-        console.log("ERROR: "+ error);
-        console.log('Error body:', error.error);
         this.showModal('Oops!', 'Please try changing your password again.');
       }
     });
@@ -118,8 +113,6 @@ export class ProfileComponent implements OnInit {
       this.showModal('Oops!', 'User profile not loaded.');
       return;
     }
-
-    console.log("OPA")
   
     if (!this.userProfile?.following) {
       this.userService.followUser(this.currentUserId, userIdToFollow).subscribe({

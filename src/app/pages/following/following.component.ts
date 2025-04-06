@@ -26,7 +26,6 @@ export class FollowingComponent implements OnInit{
   loadFollowingPosts() {
     this.postService.followingPosts(this.currentUserId).subscribe({
       next: (posts) => {
-        console.log(posts)
         this.postList = posts;
       },
       error: (error) => {

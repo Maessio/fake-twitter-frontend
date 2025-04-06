@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit{
     this.userService.searchUsers(query.trim()).subscribe({
       next: (users) => {
         this.searchResults = users;
-        console.log(this.searchResults)
+        
         this.searchModal?.nativeElement?.showModal();
       },
       error: (err) => {

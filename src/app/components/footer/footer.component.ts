@@ -49,16 +49,15 @@ export class FooterComponent implements OnInit{
   
     const postContent = this.postForm.value.content;
 
-    console.log(postContent);
   
     this.postService.createPost(this.currentUserId, postContent).subscribe({
       next: () => {
         (document.getElementById('create_post') as HTMLDialogElement)?.close();
         this.postForm.reset();
 
-        this.showModal('Success!', 'Your post has been published.');
+        window.location.reload();
       },
-      error: (error) => {
+      error: () => {
 
         this.showModal('Oops!', 'There was a problem creating your post.');
       }
@@ -80,7 +79,7 @@ export class FooterComponent implements OnInit{
   }
 
   isActive(route: string): boolean {
-    return this.router.url === route;
+    return this.router.url.startsWith(route);
   }
 
   showModal(title: string, message: string) {
