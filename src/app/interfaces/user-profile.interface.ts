@@ -8,4 +8,5 @@ export interface UserProfile {
     followingCount: number;
     posts: Post[];
     token?: string;
+    following?: boolean;
 }

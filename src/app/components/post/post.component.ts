@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Post } from '../../interfaces/post.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -11,31 +12,37 @@ import { Post } from '../../interfaces/post.interface';
 export class PostComponent implements OnInit{
   
   @Input() post?: Post;
-
-  isUserLogged = false;
+  @Input() isUserLogged?: boolean;
+  @Input() page?: string;
 
   private currentUserId = Number(localStorage.getItem('userId'));
+  private router = inject(Router);
   
   ngOnInit(): void {
-    this.checkIfUserIsLogged();
+    if (!this.isUserLogged) {
+      this.checkIfUserIsLogged();
+    }
   }
 
   private checkIfUserIsLogged(): void {
-    if (!this.post?.userId) {
+    if (this.post?.userId === this.currentUserId) {
       this.isUserLogged = true;
       return;
     }
 
-    this.isUserLogged = this.post.userId === this.currentUserId;
+    this.isUserLogged = false;
   }
 
   onActionClick(): void {
     if (this.isUserLogged) {
+
+      
       // lógica para deletar
       console.log('Delete post', this.post?.id);
     } else {
       // lógica para visualizar ou outra ação
-      console.log('View post', this.post?.id);
+      this.router.navigate(['/profile', this.post?.userId]);
+      console.log('View post', this.post?.userId);
     }
   }
   

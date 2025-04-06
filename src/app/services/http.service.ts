@@ -25,6 +25,12 @@ export class HttpService {
     return this.http.post<T>(this.baseURL + path, body, { headers });
   }
   
+  delete<T>(path: string, body?: unknown): Observable<T> {
+    const token = localStorage.getItem('token');
+    const headers = token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
+    return this.http.delete<T>(this.baseURL + path, { headers, body });
+  }
+
   put<T>(path: string, body?: unknown): Observable<T> {
     const token = localStorage.getItem('token');
 

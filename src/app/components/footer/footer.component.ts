@@ -71,6 +71,11 @@ export class FooterComponent implements OnInit{
   }
 
   setActive(route: string): void {
+    if (route === '/profile') {
+      this.router.navigate([route, this.currentUserId]);
+      return;
+    }
+
     this.router.navigate([route]);
   }
 

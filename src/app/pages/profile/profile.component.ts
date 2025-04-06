@@ -5,14 +5,16 @@ import { UserProfile } from '../../interfaces/user-profile.interface';
 import { AuthService } from '../../services/auth.service';
 import { FooterComponent } from "../../components/footer/footer.component";
 import { PostComponent } from "../../components/post/post.component";
-import { NgForOf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { CarouselComponent } from "../../components/carousel/carousel.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, FooterComponent, PostComponent, NgForOf, ModalComponent],
+  imports: [ReactiveFormsModule, FooterComponent, PostComponent, NgFor, NgIf, ModalComponent, CarouselComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -20,7 +22,7 @@ export class ProfileComponent implements OnInit {
 
   @Input() userId?: number;
 
-  isUserLoged = true;
+  isUserLogged?: boolean;
   userProfile?: UserProfile;
   
   modalOpen = false;
@@ -31,14 +33,21 @@ export class ProfileComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   private currentUserId = Number(localStorage.getItem('userId'));
 
   passwordForm!: FormGroup;
 
   ngOnInit(): void {
+    this.userId = Number(this.route.snapshot.paramMap.get('userId'));
+
+    console.log(this.userId)
+
+    this.isUserLogged = (this.userId == this.currentUserId) ? true : false;
+
     if (!this.userProfile) {
-      this.loadProfile(this.userId ?? this.currentUserId);
+      this.loadProfile(this.currentUserId, this.userId);
     }
 
     this.passwordForm = this.fb.group({
@@ -47,10 +56,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  loadProfile(id: number): void {
-    this.userService.loadUserProfile(id).subscribe({
+  loadProfile(currentUserId: number, userId?: number): void {
+    this.userService.loadUserProfile(currentUserId, userId).subscribe({
       next: (profile) => {
         this.userProfile = profile;
+        console.log(this.userProfile);
       },
       error: (error) => {
         console.error('Error to load profile:', error);
@@ -100,6 +110,44 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+ 
+  followUser() {
+    const userIdToFollow = this.userProfile?.id;
+  
+    if (userIdToFollow === undefined) {
+      this.showModal('Oops!', 'User profile not loaded.');
+      return;
+    }
+
+    console.log("OPA")
+  
+    if (!this.userProfile?.following) {
+      this.userService.followUser(this.currentUserId, userIdToFollow).subscribe({
+        next: () => {
+          this.userProfile!.following = true;
+          
+          window.location.reload();
+        },
+        error: (err) => {
+          this.userProfile!.following = false;
+        }
+      });
+    } else {
+      this.userService.unfollowUser(this.currentUserId, userIdToFollow).subscribe({
+        next: () => {
+          this.userProfile!.following = false;
+          
+          window.location.reload();
+        },
+        error: (err) => {
+          this.userProfile!.following = true;
+          this.showModal('Oops!', 'Error trying to unfollow this user');
+        }
+      });
+    }
+  }
+    
+  
 
   showModal(title: string, message: string) {
     this.modalTitle = title;
