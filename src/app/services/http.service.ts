@@ -1,6 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
+
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +11,7 @@ export class HttpService {
 
   private http = inject(HttpClient);
 
-  private baseURL = "http://localhost:8080";
+  private baseURL = environment.apiUrl;
   
   get<T>(path: string, params?: HttpParams): Observable<T> {
     const token = localStorage.getItem('token');
