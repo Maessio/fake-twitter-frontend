@@ -36,7 +36,7 @@ export class FooterComponent implements OnInit{
 
   ngOnInit(): void {
     this.postForm = this.fb.group({
-      content: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(120)]]
+      content: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]]
     });
   
   }

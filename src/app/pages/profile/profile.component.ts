@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
 
         this.showModal('Oops!', 'We had a problem loading your user data. Please log in again.');
 
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth']);
       }
     });
   }
@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit {
       next: () => {
         localStorage.clear();
 
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth']);
       },
       error: () => {
         this.showModal('Oops!', 'Please try to logout again.');

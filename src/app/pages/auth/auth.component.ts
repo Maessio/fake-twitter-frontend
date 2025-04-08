@@ -7,12 +7,12 @@ import { NgIf } from '@angular/common';
 
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-auth',
   imports: [ReactiveFormsModule, ModalComponent, NgIf],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './auth.component.html',
+  styleUrl: './auth.component.css'
 })
-export class LoginComponent implements OnInit{
+export class AuthComponent implements OnInit{
 
   isRegisterMode = false;
   
@@ -53,22 +53,24 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/home']);
       },
       error: (err) => {
+        
         this.showModal('Login Failed', 'The email or password you entered is incorrect. Please try again.');
       }
     });
   }
-
+  
   onRegister() {
     localStorage.clear();
 
     if (this.registerForm.invalid) return;
-
+    
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
-
+        
         this.toggleForm();
       },
       error: (err) => {
+
         this.showModal('Registration Failed', 'The email may already be in use or the data is invalid. Please check and try again.');
       }
     });
